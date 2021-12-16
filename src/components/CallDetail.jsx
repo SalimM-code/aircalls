@@ -13,7 +13,6 @@ const CallDetail = () => {
   useEffect(() => {
     axios.get("https://aircall-job.herokuapp.com/activities/" + id)
       .then(response => {
-        console.log("2", response.data)
         setCall(response.data)
       })
   }, [id])
@@ -24,7 +23,6 @@ const CallDetail = () => {
       {is_archived: true}
     )
     .then(res => {
-      console.log("3", res)
       setArc(true);
       navigate(-1);
     })
