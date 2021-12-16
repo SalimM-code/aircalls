@@ -9,6 +9,30 @@
   bottom: 0;
 }
 
+#root .btn {
+  /* color: red; */
+  padding: 9px 25px;
+  background-color: #5ec05e;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: white;
+}
+
+#root .btn :hover {
+  background-color: #938ffe;
+}
+
+#root .main {
+  display: block;
+  margin: 0 auto;
+}
+
+#root a {
+  text-decoration: none;
+}
+
 #root .container {
   width: 376px;
   height: 666px;
@@ -16,7 +40,9 @@
 
   background: white;
   border-radius: 3px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
+  position: relative;
+  overflow-y: scroll;
 }
 
 #root .container-view {
