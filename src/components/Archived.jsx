@@ -30,7 +30,7 @@ const Archived = () => {
   return ( 
     <Wrap>
       <CloseIcon onClick={handleClick} className="closeIcon"/>
-      <p className="note">Please click the call if you wish to <strong>unarchive</strong></p>
+      <p className="arc">Please click the call if you wish to <strong>unarchive</strong></p>
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {calls.map(call =>(

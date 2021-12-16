@@ -9,7 +9,7 @@ export const Wrap = styled(Wrapper)`
     align-self: flex-end;
     margin-bottom: 1em;
   }
-  .note {
+  .arc {
     align-self: center;
     margin-bottom: 6px;
   }
