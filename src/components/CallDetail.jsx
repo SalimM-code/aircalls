@@ -1,6 +1,8 @@
 import { useNavigate,useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CloseIcon from '@mui/icons-material/Close'
+import { Wrapper } from "./styles/Detail.styled";
 
 const CallDetail = () => {
   const { id } = useParams();
@@ -29,9 +31,10 @@ const CallDetail = () => {
   }
 
   return ( 
-    <div>
-      <button onClick={handleClick}>Back</button>
+    <Wrapper>
+      <CloseIcon onClick={handleClick} className="closeIcon"/>
       <div>
+      <p className="note">Activity Details</p>
         <p><strong>From</strong>: {call.from}</p>
         <p><strong>To</strong>: {call.to}</p>
         <p><strong>Call Type</strong>: {call.call_type}</p>
@@ -42,8 +45,8 @@ const CallDetail = () => {
         <p><strong>Time</strong>: {call.created_at}</p>
         <p><strong>Archived</strong>: {call.is_archived}</p>
       </div>
-      <button onClick={archive}>Archive</button>
-    </div>
+      <button className="btn" onClick={archive}>Archive</button>
+    </Wrapper>
   );
 }
  
