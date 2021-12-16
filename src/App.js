@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+import Calls from "./components/Calls";
+import CallLists from "./components/CallLists";
+import CallDetail from "./components/CallDetail";
+import Archived from "./components/Archived";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header />
+      <div className="container-view">
+        <Routes>
+          <Route exact path="/" element={<Calls />} />
+          <Route path="/call/:id" element={<CallDetail />} />
+          <Route path="/archived" element={<Archived />} />
+        </Routes>
+      </div>
     </div>
   );
 }
