@@ -1,20 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close';
+import { Wrap } from "./styles/Arc.styled";
+import { useAxios } from "../hook/useAxios";
+
+
 
 const Archived = () => {
-  const [arc, setArc] = useState(true)
-  const [calls, setCalls] = useState([])
+  const { calls, isPending, error } = useAxios();
   const navigate = useNavigate()
-
-  useEffect(() => {
-    axios.get("https://aircall-job.herokuapp.com/activities")
-      .then(response => {
-        console.log("1", response.data)
-        setCalls(response.data)
-      })
-  }, [])
 
   const handleClick = () => navigate(-1);
   const handleArc = (id) => {
@@ -23,27 +18,37 @@ const Archived = () => {
       if(res.status === 200) {
         navigate(-1);
       }
-      // console.log("10", res)
     })
   }
+  const handleReset = () => {
+    axios.get("https://aircall-job.herokuapp.com/reset")
+    .then(res => {
+      navigate(-1);
+    })
+  }
+
   return ( 
-    <div>
+    <Wrap>
+      <CloseIcon onClick={handleClick} className="closeIcon"/>
+      <p className="note">Please click the call if you wish to <strong>unarchive</strong></p>
+      {error && <div>{error}</div>}
+      {isPending && <div>Loading...</div>}
       {calls.map(call =>(
-        <div key={call.id}>
+        <div key={call.id} onClick={() => handleArc(call.id)}>
           {!call.is_archived ? null : 
-          <div>
-              <h4>{`${call.direction === 'outbound' ? '↗️' : '↙️'} || ${call.to === null ? 'Unknown' : call.to}`}</h4>
+          <div className="call">
+              <h4 className={`to ${call.call_type === 'missed' ? 'missed' : ''}`}>{`${call.direction === 'outbound' ? '↗️' : '↙️'} ${call.to === null ? 'Unknown' : call.to}`}</h4>
               <p>{`${call.from} - ${call.via}`}</p>
-              <div>{format(new Date(call.created_at), 'dd/MM HH:mm')}</div>
-              <button onClick={() => handleArc(call.id)}>unarchive</button>
+              <div className="date">{format(new Date(call.created_at), 'dd/MM HH:mm')}</div>
             </div>
           }
         </div>
       ))}
-      <button onClick={handleClick}>back to call logs</button>
+      
+      <button className="btn" onClick={handleReset}>Reset All</button>
 
-    </div>
-   );
+    </Wrap>
+  );
 }
- 
+
 export default Archived;
