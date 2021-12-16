@@ -1,27 +1,22 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import React from "react";
 import CallLists from "./CallLists";
 import { Link } from "react-router-dom";
+import { Wrapper } from "./styles/Call.styled";
+import { useAxios } from "../hook/useAxios";
 
 const Calls = () => {
-  const [calls, setCalls] = useState([]);
-
-  useEffect(() => {
-    axios.get("https://aircall-job.herokuapp.com/activities")
-      .then(response => {
-        console.log("1", response.data)
-        setCalls(response.data)
-      })
-  }, [])
+  const { calls, isPending, error } = useAxios();
 
   return (
-    <div>
+    <Wrapper>
+      {error && <div>{error}</div>}
+      {isPending && <div>Loading...</div>}
+      <div>
       {calls && <CallLists calls={calls}  />}
+      </div>
       <Link to="/archived">
-      <button>view Archived calls</button>
+      <button className="main btn">View Archived calls</button>
       </Link>
-    </div>
+    </Wrapper>
   )
 }
 
